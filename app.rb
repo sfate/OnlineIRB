@@ -1,8 +1,8 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'json'
+require 'minion'
 include Minion
-require File.join(File.dirname(__FILE__), 'tweet')
 
 class App < Sinatra::Base
   register Sinatra::Reloader
