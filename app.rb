@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'json'
-require 'capybara'
+include Minion
 require File.join(File.dirname(__FILE__), 'tweet')
 
 class App < Sinatra::Base
