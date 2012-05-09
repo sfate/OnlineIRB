@@ -1,4 +1,4 @@
-body.404 {
+body.error {
   background-image: url(/images/dead_end.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
