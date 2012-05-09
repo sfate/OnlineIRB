@@ -1,0 +1,6 @@
+body.404 {
+  background-image: url(/images/dead_end.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
