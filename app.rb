@@ -11,12 +11,20 @@ class App < Sinatra::Base
     erb :"404.html"
   end
 
-  get '/about' do
+  get 'about' do
     "Simple app that provides you access to ruby console"
   end
 
   get '/' do
     erb :"index.html"
+  end
+
+  post 'process' do
+    Minion.enqueue("evaluate_send",:code_block => params[:code_block].strip)
+  end
+
+  post 'result' do
+
   end
 
   # start the server if ruby file executed directly
