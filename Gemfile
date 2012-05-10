@@ -16,6 +16,9 @@ gem 'tmm1-amqp', :require => 'mq'
 gem 'eventmachine'
 gem 'minion', :git => "git@github.com:Sfate/minion.git"
 
+# use simple rest client
+gem 'rest-client'
+
 # heroku addition
 group :production do
   gem 'pg'
