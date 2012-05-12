@@ -1,6 +1,22 @@
-body.error {
-  background-image: url(/images/dead_end.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+body {
+  background-color:#121212;
+  color:#fcffba;
+  font-family: monaco, sans-serif;
+  src: url(/public/fonts/monaco.ttf) format("truetype");
+  white-space: pre;
 }
+
+div.error {
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center;
+}
+
+a {
+  color:#fa5757;
+}
+
+a:visited {
+  color:#fa5757;
+}
+

@@ -20,6 +20,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
+    @ruby_v = RUBY_VERSION#.match(/1.[8-9].[0-9]p\d{3}/).to_s rescue "ruby"
     erb :"index.html"
   end
 
