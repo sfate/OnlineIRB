@@ -2,5 +2,4 @@
 require './app'
 run App
 # run worker
-run './worker.rb'
 
