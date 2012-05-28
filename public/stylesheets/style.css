@@ -1,8 +1,7 @@
 body {
   background-color:#121212;
   color:#fcffba;
-  font-family:monaco,sans-serif;
-  src:url(/public/fonts/monaco.ttf)format("truetype");
+  font-family:"Lucida Console", Monaco, monospace;;
 }
 
 div.error {
@@ -31,9 +30,8 @@ div.stub {
 #input {
   background-color:#121212;
   color:#fcffba;
-  font-family:monaco, sans-serif;
+  font-family:"Lucida Console", Monaco, monospace;
   font-size:16px;
-  src:url(/public/fonts/monaco.ttf)format("truetype");
   border:none;
   outline:none;
   width:80%;
