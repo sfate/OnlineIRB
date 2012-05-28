@@ -11,13 +11,8 @@ gem 'json'
 # server
 gem 'thin'
 
-# use messaging
-gem 'tmm1-amqp', :require => 'mq'
-gem 'eventmachine'
-gem 'minion', :git => "git@github.com:Sfate/minion.git"
-
-# use simple rest client
-gem 'rest-client'
+# use WebSockets power
+gem 'sinatra-websocket'
 
 # heroku addition
 group :production do

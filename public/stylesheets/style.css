@@ -1,15 +1,15 @@
 body {
   background-color:#121212;
   color:#fcffba;
-  font-family: monaco, sans-serif;
-  src: url(/public/fonts/monaco.ttf) format("truetype");
-  white-space: pre;
+  font-family:monaco,sans-serif;
+  src:url(/public/fonts/monaco.ttf)format("truetype");
 }
 
 div.error {
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-position:center;
+  white-space: pre;
 }
 
 a {
@@ -18,5 +18,45 @@ a {
 
 a:visited {
   color:#fa5757;
+}
+
+div.stub {
+  display:none;
+}
+
+#form {
+  display:inline;
+}
+
+#input {
+  background-color:#121212;
+  color:#fcffba;
+  font-family:monaco, sans-serif;
+  font-size:16px;
+  src:url(/public/fonts/monaco.ttf)format("truetype");
+  border:none;
+  outline:none;
+  width:80%;
+}
+
+.cmd {
+  width:100%;
+  display:block;
+  margin:-3px 0;
+}
+
+img.github {
+  position:absolute;
+  top:0;
+  right:0;
+  border:0;
+}
+
+h1 {
+  display:inline;
+}
+
+a.about {
+  font-size: 20px;
 }
 
