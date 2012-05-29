@@ -69,7 +69,7 @@
       $('.cmd form#form input#input').bind('keydown', function(e){
         if(e.keyCode == 38){ // up arrow
           if(keyDirection != "up"){
-            var oldCommand = $("#oldCommand").last().html();
+            var oldCommand = $("span#oldCommand").last().html();
             keyDirection = "up"
             currentCommand = $('.cmd form#form input#input').val();
             $('.cmd form#form input#input').val(oldCommand);
