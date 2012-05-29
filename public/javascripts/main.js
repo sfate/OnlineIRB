@@ -15,8 +15,7 @@
       };
     }
 
-    var lineCount = undefined,
-               ws = undefined;
+    var currentCommand = keyDirection = lineCount = ws = undefined;
     initializeWS();
 
     $(document).ready(function(){
@@ -25,6 +24,7 @@
       });
       focusOnInput();
       sender();
+      bindArrowsToHistory();
     })
 
     show = function(msg){
@@ -33,7 +33,7 @@
       }else{
         $('.output').html($('.output').html()+'<br />'+$('.cmd').html()+'<br />'+msg);
       }
-      $('.output form input').last().replaceWith('<span>'+$('.cmd form#form input#input').val()+'</span>');
+      $('.output form input').last().replaceWith('<span id="oldCommand">'+$('.cmd form#form input#input').val()+'</span>');
       $('.cmd span.base span.lineCount').html(increaseLineCount());
       $('.cmd form#form input#input').val('');
       $("html, body").animate({ scrollTop: $(document).height() }, "fast");
@@ -43,6 +43,7 @@
       $('#form').submit(function(e){
         e.preventDefault();
         ws.send($('.cmd form#form input#input').val());
+        keyDirection = currentCommand = undefined;
       });
     }
 
@@ -62,6 +63,25 @@
         counter = "0" + counter;
       }
       return counter;
+    }
+
+    bindArrowsToHistory = function(){
+      $('.cmd form#form input#input').bind('keydown', function(e){
+        if(e.keyCode == 38){ // up arrow
+          if(keyDirection != "up"){
+            var oldCommand = $("#oldCommand").last().html();
+            keyDirection = "up"
+            currentCommand = $('.cmd form#form input#input').val();
+            $('.cmd form#form input#input').val(oldCommand);
+          }
+        }else if (e.keyCode == 40){ //down arrow
+          if(keyDirection != "down"){
+            $('.cmd form#form input#input').val(currentCommand);
+            keyDirection = "down"
+            currentCommand = undefined;
+          }
+        }
+      })
     }
 
   })

@@ -39,12 +39,13 @@ class App < Sinatra::Base
     unless message.nil?
       return "StandardError: Can't process this line!" if unacceptable_command?(message)
       begin
-        " => #{eval(message)}"
+        respond = eval(message)
+        " => #{respond.nil? ? 'nil' : respond }"
       rescue Exception => ex
         ex.to_s
       end
     else
-      ""
+      "nil"
     end
   end
 
