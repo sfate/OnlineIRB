@@ -42,7 +42,9 @@
     sender = function(){
       $('#form').submit(function(e){
         e.preventDefault();
-        ws.send($('.cmd form#form input#input').val());
+        if( !ws.send($('.cmd form#form input#input').val()) ){
+          show('Disconnected! Please reload page!');
+        }
         keyDirection = currentCommand = undefined;
       });
     }
