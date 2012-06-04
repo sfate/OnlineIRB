@@ -22,8 +22,8 @@ map '/' do
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Welcome to OpenShift</title>
   <style>
-  html { 
-  background: black; 
+  html {
+  background: black;
   }
   body {
     background: #333;
@@ -77,7 +77,7 @@ map '/' do
     right: 0;
     z-index: -1000;
   }
-  h2 { 
+  h2 {
     margin: 2em 0 .5em;
     border-bottom: 1px solid #999;
   }
@@ -91,8 +91,8 @@ map '/' do
     color: #9cf;
   }
 
-  ul { 
-    margin: 0; 
+  ul {
+    margin: 0;
     padding: 0;
   }
   li {
@@ -141,6 +141,7 @@ map '/' do
     Welcome to OpenShift
   </h1>
   <p>
+  o_O
     Place your application here
   </p>
   <p>
@@ -153,7 +154,7 @@ map '/' do
   <p>
     Then reload this page.
   </p>
-  
+
   <h2>
     What's next?
   </h2>
