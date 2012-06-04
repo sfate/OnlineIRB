@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>irb onLine</title>
+  </head>
+  <body oncontextmenu="focusOnInput();return false;">
+    <h1>Very simple IRB Online Tool</h1>&nbsp;&nbsp;<a class="about" href="/about">About</a>
+    <br /><br />
+    <a href="https://github.com/Sfate/OnlineIRB"><img class="github" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <div id="cmd" class="terminal" scrolltop="0">
+      <div class="output"></div>
+      <div class="cmd">
+        <span class="base"><%= @ruby_v %>&nbsp;:<span class="lineCount">001</span></span><span>&nbsp;&gt;</span>
+        <form id="form"><input maxlength="100" type="text" id="input"></input></form>
+      </div>
+    </div>
+  </body>
+</html>
