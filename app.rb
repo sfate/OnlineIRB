@@ -17,7 +17,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    if !request.websocket?
+    unless (request.websocket? rescue NoMethodError nil)
       @ruby_v = RUBY_VERSION.match(/1.[8-9].[0-9]/).to_s
       erb :"ws.html"
     else
