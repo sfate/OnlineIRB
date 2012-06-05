@@ -56,6 +56,7 @@ class App < Sinatra::Base
       /system[\s(]/,
       /exec[\s(]/,
       /eval[\s(]/,
+      /`/,
       /%x\[/
     ].each do |regexp|
       return true unless command.scan(regexp).empty?
