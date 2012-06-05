@@ -18,9 +18,6 @@ $ bundle install
 $ bundle exec thin start -Rconfig.ru
 ```
 Then open in browser `http://localhost:3000/`
-Issues
---
-http://onirb.herokuapp.com/ is non-fuctional case heroku does not support `ws://` protocol.
 
 About
 --
