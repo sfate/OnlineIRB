@@ -36,32 +36,33 @@ class App < Sinatra::Base
   end
 
   def evaluate(message)
-    unless message.nil?
-      return "StandardError: Can't process this line!" if unacceptable_command?(message)
+    result = output = nil
+    stdout_id = $stdout.to_i
+    $stdout = StringIO.new
+    cmd = <<-EOF
+      $SAFE = 3
+      $stdout = StringIO.new
       begin
-        respond = eval(message)
-        " => #{respond.nil? ? 'nil' : respond }"
-      rescue Exception => ex
-        ex.to_s
+        #{message}
       end
-    else
-      "nil"
+    EOF
+    begin
+      respond = eval(cmd, TOPLEVEL_BINDING)
+      result  = " => #{respond.nil? ? 'nil' : respond }"
+    rescue SecurityError
+      result = "SecurityError: Can't process this line!"
+    rescue Exception => e
+      result = e.to_s
+    ensure
+      output = get_stdout
+      $stdout = IO.new(stdout_id)
     end
+    output.empty? ? result : "#{output}<br />#{result}"
   end
 
-  # check for system evaluation commands
-  def unacceptable_command?(command)
-    # array of denied commands in regexp
-    [
-      /system[\s(]/,
-      /exec[\s(]/,
-      /eval[\s(]/,
-      /`/,
-      /%x\[/
-    ].each do |regexp|
-      return true unless command.scan(regexp).empty?
-    end
-    false
+  def get_stdout
+    $stdout.rewind
+    $stdout.read
   end
 
   # start the server if ruby file executed directly

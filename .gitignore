@@ -1,3 +1,5 @@
 /.rvmrc
-/thiny
-/open_shift_restart
+/thin*
+/.bundle
+/log
+/tmp
