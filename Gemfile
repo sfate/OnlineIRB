@@ -14,8 +14,6 @@ gem 'thin'
 # use WebSockets power
 gem 'sinatra-websocket'
 
-# heroku addition
-group :production do
-  gem 'pg'
-end
+# use simple deploy
+gem 'mina'
 
