@@ -23,8 +23,7 @@ class App < Sinatra::Base
     else
       request.websocket do |ws|
         ws.onmessage do |msg|
-          respond = evaluate(msg)
-          ws.send(respond)
+          ws.send( evaluate(msg) )
           settings.sockets << ws
         end
         ws.onclose do
@@ -42,7 +41,7 @@ class App < Sinatra::Base
       $SAFE = 3
       $stdout = StringIO.new
       begin
-        #{message}
+        class App < Sinatra::Base; #{message} ; end
       end
     EOF
     begin
