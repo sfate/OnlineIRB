@@ -52,7 +52,12 @@ class App < Sinatra::Base
     rescue Exception => e
       result = e.message.gsub(/<|>/,"")
     ensure
-      output = get_stdout
+      begin
+        output = get_stdout
+      rescue
+        output = ""
+        result = "SecurityError: Can't process this line!"
+      end
       $stdout = IO.new(stdout_id)
     end
     output.empty? ? result : "#{output}<br />#{result}"
