@@ -38,7 +38,6 @@ class App < Sinatra::Base
   def evaluate(message)
     result = output = nil
     stdout_id = $stdout.to_i
-    $stdout = StringIO.new
     cmd = <<-EOF
       $SAFE = 3
       $stdout = StringIO.new
@@ -52,7 +51,7 @@ class App < Sinatra::Base
     rescue SecurityError
       result = "SecurityError: Can't process this line!"
     rescue Exception => e
-      result = e.to_s
+      result = e.message.gsub(/<|>/,"")
     ensure
       output = get_stdout
       $stdout = IO.new(stdout_id)
