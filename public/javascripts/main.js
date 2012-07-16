@@ -58,7 +58,7 @@
         lineCount = 1;
       }
       lineCount = lineCount + 1;
-      counter = lineCount + "";
+      var counter = lineCount + "";
       if(counter.length == 1){
         counter = "00" + counter;
       } else if (counter.length == 2) {
