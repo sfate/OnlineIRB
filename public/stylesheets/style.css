@@ -5,9 +5,6 @@ body {
 }
 
 div.error {
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
   white-space: pre;
 }
 
@@ -17,10 +14,6 @@ a {
 
 a:visited {
   color:#fa5757;
-}
-
-div.stub {
-  display:none;
 }
 
 #form {
@@ -56,6 +49,14 @@ h1 {
 }
 
 a.about {
-  font-size: 20px;
+  font-size:20px;
+}
+
+.unsupported {
+  background-color:#999999;
+  width:100%;
+  height:100%;
+  position:absolute;
+  z-index:9999;
 }
 
