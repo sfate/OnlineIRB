@@ -16,9 +16,16 @@ class App < Sinatra::Base
     erb :"about.html"
   end
 
+  get '/index' do
+    @ruby_v = "#{RUBY_VERSION}"
+    @ruby_v << "p#{RUBY_PATCHLEVEL}" if RUBY_PATCHLEVEL
+    erb :"index.html"
+  end
+
   get '/' do
     unless (request.websocket? rescue nil)
-      @ruby_v = RUBY_VERSION.match(/1.[8-9].[0-9]/).to_s
+      @ruby_v = "#{RUBY_VERSION}"
+      @ruby_v << "p#{RUBY_PATCHLEVEL}" if RUBY_PATCHLEVEL
       erb :"ws.html"
     else
       request.websocket do |ws|
@@ -34,14 +41,17 @@ class App < Sinatra::Base
     end
   end
 
+  get '/unsupported' do
+    erb :"index.html"
+  end
+
   def evaluate(message)
-    result = output = nil
     stdout_id = $stdout.to_i
     cmd = <<-EOF
       $SAFE = 3
       $stdout = StringIO.new
       begin
-        class App < Sinatra::Base; #{message} ; end
+        class IRB < Sinatra::Base; #{message} ; end
       end
     EOF
     begin
@@ -56,7 +66,7 @@ class App < Sinatra::Base
         output = get_stdout
       rescue
         output = ""
-        result = "SecurityError: Can't process this line!"
+        result = "SyntaxError: Can't process this line!"
       end
       $stdout = IO.new(stdout_id)
     end

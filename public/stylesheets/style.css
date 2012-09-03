@@ -2,6 +2,20 @@ body {
   background-color:#121212;
   color:#fcffba;
   font-family:"Lucida Console", Monaco, monospace;;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body.about {
+  background-image: url('/images/ruby_logo.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  font-size:26px;
 }
 
 div.error {
@@ -53,10 +67,35 @@ a.about {
 }
 
 .unsupported {
-  background-color:#999999;
+  filter:alpha(opacity=90);
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90);
+  -moz-opacity:.90;
+  -khtml-opacity:0.9;
+  opacity:0.9;
+  background-color:black;
+  position:fixed;
+  z-index:9999;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
+  cursor:default;
+}
+
+.unsupported .text_content {
+  position:fixed;
+  top:40%;
+  color:rgba(255, 73, 73, 1);
+  font-size:50px;
+  text-shadow:8px 0 0 rgba(0, 0, 255, 0.3);
+}
+
+.footer {
+  color:#DB4040;
+  font-size:12px;
+  text-decoration:underline;
+  text-align:left;
   position:absolute;
-  z-index:9999;
+  bottom:5px;
 }
 

@@ -1,7 +1,15 @@
 (function($){
   $(function(){
 
-    initializeWS = function(){
+    testSupportWS = function () {
+      var webSocketsExist = "WebSocket" in window;
+      if (!webSocketsExist) {
+        location.href = "/unsupported";
+      }
+    }
+    testSupportWS();
+
+    initializeWS = function() {
       ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
       ws.onopen = function(event) {
         ws.onerror   = function(e) { console.log('WebSocket: Error.',e); };
@@ -18,8 +26,8 @@
     var currentCommand = keyDirection = lineCount = ws = undefined;
     initializeWS();
 
-    $(document).ready(function(){
-      $("body").bind('click', function(){
+    $(document).ready(function() {
+      $("body").bind('click', function() {
         focusOnInput();
       });
       focusOnInput();
@@ -27,10 +35,10 @@
       bindArrowsToHistory();
     })
 
-    show = function(msg){
-      if (typeof(lineCount) == 'undefined'){
+    show = function(msg) {
+      if (typeof(lineCount) == 'undefined') {
         $('.output').html($('.cmd').html()+'<br />'+msg);
-      }else{
+      } else {
         $('.output').html($('.output').html()+'<br />'+$('.cmd').html()+'<br />'+msg);
       }
       $('.output form input').last().replaceWith('<span id="oldCommand">'+$('.cmd form#form input#input').val()+'</span>');
@@ -39,27 +47,27 @@
       $("html, body").animate({ scrollTop: $(document).height() }, "fast");
     }
 
-    sender = function(){
-      $('#form').submit(function(e){
+    sender = function() {
+      $('#form').submit(function(e) {
         e.preventDefault();
-        if( !ws.send($('.cmd form#form input#input').val()) ){
+        if ( !ws.send($('.cmd form#form input#input').val()) ) {
           show('Disconnected! Please reload page!');
         }
         keyDirection = currentCommand = undefined;
       });
     }
 
-    focusOnInput = function(){
+    focusOnInput = function() {
       $('.cmd form#form input#input').focus();
     }
 
-    increaseLineCount = function(){
-      if( typeof(lineCount) == 'undefined' || lineCount<=1 || lineCount >= 999){
+    increaseLineCount = function() {
+      if( typeof(lineCount) == 'undefined' || lineCount<=1 || lineCount >= 999) {
         lineCount = 1;
       }
       lineCount = lineCount + 1;
       var counter = lineCount + "";
-      if(counter.length == 1){
+      if (counter.length == 1) {
         counter = "00" + counter;
       } else if (counter.length == 2) {
         counter = "0" + counter;
@@ -67,25 +75,24 @@
       return counter;
     }
 
-    bindArrowsToHistory = function(){
-      $('.cmd form#form input#input').bind('keydown', function(e){
-        if(e.keyCode == 38){ // up arrow
-          if(keyDirection != "up"){
+    bindArrowsToHistory = function() {
+      $('.cmd form#form input#input').bind('keydown', function(e) {
+        if (e.keyCode == 38) { // up arrow
+          if (keyDirection != "up") {
             var oldCommand = $("span#oldCommand").last().html();
             keyDirection = "up"
             currentCommand = $('.cmd form#form input#input').val();
-            $('.cmd form#form input#input').val(oldCommand);
+            $(this).focus().val(oldCommand);
           }
-        }else if (e.keyCode == 40){ //down arrow
-          if(keyDirection != "down"){
-            $('.cmd form#form input#input').val(currentCommand);
+        } else if (e.keyCode == 40) { //down arrow
+          if (keyDirection != "down") {
+            $(this).focus().val(currentCommand);
             keyDirection = "down"
             currentCommand = undefined;
           }
         }
-      })
+      });
     }
-
   })
 })($)
 
