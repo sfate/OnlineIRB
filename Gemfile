@@ -14,6 +14,3 @@ gem 'thin'
 # use WebSockets power
 gem 'sinatra-websocket'
 
-# use simple deploy
-gem 'mina'
-
