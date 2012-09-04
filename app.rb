@@ -16,12 +16,6 @@ class App < Sinatra::Base
     erb :"about.html"
   end
 
-  get '/index' do
-    @ruby_v = "#{RUBY_VERSION}"
-    @ruby_v << "p#{RUBY_PATCHLEVEL}" if RUBY_PATCHLEVEL
-    erb :"index.html"
-  end
-
   get '/' do
     unless (request.websocket? rescue nil)
       @ruby_v = "#{RUBY_VERSION}"
@@ -42,6 +36,8 @@ class App < Sinatra::Base
   end
 
   get '/unsupported' do
+    @ruby_v = "#{RUBY_VERSION}"
+    @ruby_v << "p#{RUBY_PATCHLEVEL}" if RUBY_PATCHLEVEL
     erb :"index.html"
   end
 
