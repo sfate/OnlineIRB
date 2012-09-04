@@ -48,10 +48,31 @@ class App < Sinatra::Base
   def evaluate(message)
     stdout_id = $stdout.to_i
     cmd = <<-EOF
-      $SAFE = 3
-      $stdout = StringIO.new
-      begin
-        class IRB < Sinatra::Base; #{message} ; end
+      class IRB < Sinatra::Base
+        DEFAULT_TIMEOUT = 5 #sec
+        $SAFE   = 3
+        $stdout = StringIO.new
+        value   = nil
+
+        thread = Thread.start do
+          begin
+            value = #{message}
+          end
+        end
+
+        thread.join(DEFAULT_TIMEOUT)
+
+        if thread.alive?
+          if thread.respond_to? :kill!
+            thread.kill!
+          else
+            thread.kill
+          end
+
+          raise TimeoutError, "timed out"
+        end
+
+        value
       end
     EOF
     begin
@@ -59,6 +80,8 @@ class App < Sinatra::Base
       result  = " => #{respond.nil? ? 'nil' : respond }"
     rescue SecurityError
       result = "SecurityError: Can't process this line!"
+    rescue TimeoutError
+      result = "TimeoutError: Code took longer than 5 seconds to terminate"
     rescue Exception => e
       result = e.message.gsub(/<|>/,"")
     ensure
