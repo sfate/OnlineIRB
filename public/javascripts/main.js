@@ -16,7 +16,7 @@
       focusOnInput();
       sender();
       bindArrowsToHistory();
-    })
+    });
 
     show = function(msg) {
       if (lineCount >= 0) {
@@ -28,7 +28,7 @@
       $('.cmd span.base span.lineCount').html(increaseLineCount());
       $('.cmd form#form input#input').val('');
       $("html, body").animate({ scrollTop: $(document).height() }, "fast");
-    }
+    };
 
     sender = function() {
       $('#form').submit(function(e) {
@@ -38,11 +38,11 @@
         }
         keyDirection = currentCommand = undefined;
       });
-    }
+    };
 
     focusOnInput = function() {
       $('.cmd form#form input#input').focus();
-    }
+    };
 
     increaseLineCount = function() {
       if( typeof(lineCount) == 'undefined' || lineCount<=1 || lineCount >= 999) {
@@ -56,7 +56,7 @@
         counter = "0" + counter;
       }
       return counter;
-    }
+    };
 
     bindArrowsToHistory = function() {
       $('.cmd form#form input#input').bind('keydown', function(e) {
@@ -75,7 +75,7 @@
           }
         }
       });
-    }
+    };
 
     (function testSupportWS() {
       var webSocketsExist = "WebSocket" in window;
@@ -98,6 +98,6 @@
       };
     })();
 
-  })
-})($)
+  });
+})(jQuery);
 
