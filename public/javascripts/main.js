@@ -1,45 +1,43 @@
-(function($){
+(function($){ 'use strict';
   $(function(){
+    var ws,
+        currentCommand,
+        keyDirection,
+        lineCount;
 
-    testSupportWS = function () {
+    (function testSupportWS() {
       var webSocketsExist = "WebSocket" in window;
       if (!webSocketsExist) {
         location.href = "/unsupported";
       }
-    }
-    testSupportWS();
+    })();
 
-    initializeWS = function() {
-      ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    (function initializeWS() {
+      var protocol = window.location.protocol == 'https:' ? 'wss' : 'ws';
+      ws = new WebSocket(protocol + '://' + window.location.host + window.location.pathname);
+
       ws.onopen = function(event) {
         ws.onerror   = function(e) { console.log('WebSocket: Error.',e); };
-        ws.onmessage = function(m) {
-          show(m.data);
-        };
+        ws.onmessage = function(m) { show(m.data); };
         ws.onclose   = function() {
           console.log('WebSocket: Disconnected. Reinitializing...');
           initializeWS();
         };
       };
-    }
-
-    var currentCommand = keyDirection = lineCount = ws = undefined;
-    initializeWS();
+    })();
 
     $(document).ready(function() {
-      $("body").bind('click', function() {
-        focusOnInput();
-      });
+      $("body").bind('click', focusOnInput);
       focusOnInput();
       sender();
       bindArrowsToHistory();
     })
 
     show = function(msg) {
-      if (typeof(lineCount) == 'undefined') {
-        $('.output').html($('.cmd').html()+'<br />'+msg);
-      } else {
+      if (lineCount >= 0) {
         $('.output').html($('.output').html()+'<br />'+$('.cmd').html()+'<br />'+msg);
+      } else {
+        $('.output').html($('.cmd').html()+'<br />'+msg);
       }
       $('.output form input').last().replaceWith('<span id="oldCommand">'+$('.cmd form#form input#input').val()+'</span>');
       $('.cmd span.base span.lineCount').html(increaseLineCount());
