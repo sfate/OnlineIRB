@@ -5,26 +5,11 @@
         keyDirection,
         lineCount;
 
-    (function testSupportWS() {
-      var webSocketsExist = "WebSocket" in window;
-      if (!webSocketsExist) {
-        location.href = "/unsupported";
-      }
-    })();
-
-    (function initializeWS() {
-      var protocol = window.location.protocol == 'https:' ? 'wss' : 'ws';
-      ws = new WebSocket(protocol + '://' + window.location.host + window.location.pathname);
-
-      ws.onopen = function(event) {
-        ws.onerror   = function(e) { console.log('WebSocket: Error.',e); };
-        ws.onmessage = function(m) { show(m.data); };
-        ws.onclose   = function() {
-          console.log('WebSocket: Disconnected. Reinitializing...');
-          initializeWS();
-        };
-      };
-    })();
+    var show,
+        sender,
+        focusOnInput,
+        increaseLineCount,
+        bindArrowsToHistory;
 
     $(document).ready(function() {
       $("body").bind('click', focusOnInput);
@@ -91,6 +76,28 @@
         }
       });
     }
+
+    (function testSupportWS() {
+      var webSocketsExist = "WebSocket" in window;
+      if (!webSocketsExist) {
+        location.href = "/unsupported";
+      }
+    })();
+
+    (function initializeWS() {
+      var protocol = window.location.protocol == 'https:' ? 'wss' : 'ws';
+      ws = new WebSocket(protocol + '://' + window.location.host + window.location.pathname);
+
+      ws.onopen = function(event) {
+        ws.onerror   = function(e) { console.log('WebSocket: Error.',e); };
+        ws.onmessage = function(m) { show(m.data); };
+        ws.onclose   = function() {
+          console.log('WebSocket: Disconnected. Reinitializing...');
+          initializeWS();
+        };
+      };
+    })();
+
   })
 })($)
 
